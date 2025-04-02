@@ -3,18 +3,17 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/NarsingSandeep/jenkins.git'
-
+                git 'https://github.com/NarsingSandeep/jenkins.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t myapp:latest .'
+                sh 'docker build -t mypythonapp:latest .'
             }
         }
-        stage('Run Docker Container') {
+        stage('Run Python Script in Docker') {
             steps {
-                sh 'docker run -d -p 8083:80 myapp:latest'
+                sh 'docker run mypythonapp:latest'
             }
         }
     }
