@@ -1,19 +1,33 @@
+// pipeline {
+//     agent any
+//     stages {
+//         stage('Checkout Code') {
+//             steps {
+//                 git branch: 'main', url: 'https://github.com/NarsingSandeep/jenkins.git'
+//             }
+//         }
+//         stage('Build Docker Image') {
+//             steps {
+//                 sh 'docker build -t mypythonapp:latest .'
+//             }
+//         }
+//         stage('Run Python Script in Docker') {
+//             steps {
+//                 sh 'docker run mypythonapp:latest'
+//             }
+//         }
+//     }
+// }
+
 pipeline {
     agent any
+    triggers {
+        githubPush()
+    }
     stages {
-        stage('Checkout Code') {
+        stage('Webhook Triggered') {
             steps {
-                git branch: 'main', url: 'https://github.com/NarsingSandeep/jenkins.git'
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t mypythonapp:latest .'
-            }
-        }
-        stage('Run Python Script in Docker') {
-            steps {
-                sh 'docker run mypythonapp:latest'
+                echo "GitHub Webhook Triggered!"
             }
         }
     }
